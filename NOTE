@@ -1,0 +1,5 @@
+To create project:
+pnpm create next-app .
+
+To access the project URL:
+pnpm dev
