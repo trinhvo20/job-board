@@ -4,4 +4,9 @@ pnpm create next-app .
 To access the project URL:
 pnpm dev
 
+For icon:
+pnpm install react-icons --save
+
 Use workos.com for authentication (user login).
+pnpm add @workos-inc/node
+pnpm add @workos-inc/authkit-nextjs
