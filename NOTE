@@ -1,12 +1,39 @@
-To create project:
+**To create project:**
+Go to the project (empty) folder
+```bash
 pnpm create next-app .
+```
 
-To access the project URL:
+**To access the project URL**
+```bash
 pnpm dev
+```
 
-For icon:
+**For icon**
+
+https://react-icons.github.io/react-icons/
+```bash
 pnpm install react-icons --save
+```
 
-Use workos.com for authentication (user login).
+**Use workos.com for authentication (user login)**
+
+https://workos.com/
+```bash
 pnpm add @workos-inc/node
 pnpm add @workos-inc/authkit-nextjs
+```
+
+**Radix Themes is a pre-styled component library that is designed to work out of the box with minimal configuration**
+
+https://www.radix-ui.com/
+```bash
+pnpm add @radix-ui/themes
+```
+
+**To create a responsive country, state, city dropdown search options**
+
+https://yarnpkg.com/package?q=city&name=country-state-city
+```bash
+pnpm add react-country-state-city
+```
