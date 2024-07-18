@@ -7,7 +7,7 @@ export default async function Header() {
     return (
         <header>
             <div className="flex justify-between items-center mx-auto my-4 container">
-                <Link href="/" className="font-bold text-xl">Job Board</Link>
+                <Link href="/" className="font-bold text-2xl">Job Board</Link>
                 <nav className="flex gap-2 *:py-2 *:px-4 *:rounded-md">
                     
                     {/* Post a job */}

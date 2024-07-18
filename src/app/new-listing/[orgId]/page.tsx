@@ -1,6 +1,5 @@
 import { getUser } from "@workos-inc/authkit-nextjs";
 import { WorkOS } from "@workos-inc/node";
-import '@radix-ui/themes/styles.css';
 import NewJobForm from "@/app/components/NewJobForm";
 
 
@@ -30,6 +29,6 @@ export default async function NewListingPageForCompany(props: Props) {
     }
 
     return (
-        <NewJobForm />
+        <NewJobForm orgId={orgId} />
     )
 }

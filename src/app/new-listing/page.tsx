@@ -42,8 +42,12 @@ export default async function NewListingPage() {
                 )}
                 <div className="inline-block">
                 {Object.keys(organizationNames).map(orgId => (
-                    <Link href={'new-listing/' + orgId} className="border border-gray-300 mt-1 px-4 py-2 rounded-md block" key={orgId}>
-                        {organizationNames[orgId]}
+                    <Link 
+                        href={'new-listing/' + orgId} 
+                        className="border border-gray-500 mt-1 px-4 py-2 rounded-md block" 
+                        key={orgId}
+                    >
+                            {organizationNames[orgId]}
                     </Link>
                 ))}
                 </div>

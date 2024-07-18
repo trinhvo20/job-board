@@ -37,3 +37,27 @@ https://yarnpkg.com/package?q=city&name=country-state-city
 ```bash
 pnpm add react-country-state-city
 ```
+
+**Use AWS S3 to store company logos**
+- First we need to create a S3 bucket, a IAM user, and add S3 permission into this IAM user. Specify this user to this S3 bucket.
+- Then inside this user, we create an **access key** and add to our `.env` file
+```bash
+pnpm add axios
+pnpm add @aws-sdk/client-s3
+```
+
+**Use MongoDB as database to save created jobs**
+
+https://www.mongodb.com/
+
+https://cloud.mongodb.com/v2/60f73f15da9cca02a90ca126#/clusters
+
+```bash
+pnpm add mongoose
+```
+
+**Timestamp for time-ago**
+
+```bash
+pnpm add react-timeago
+```
