@@ -19,6 +19,8 @@ pnpm install react-icons --save
 **Use workos.com for authentication (user login)**
 
 https://workos.com/
+
+https://dashboard.workos.com/get-started
 ```bash
 pnpm add @workos-inc/node
 pnpm add @workos-inc/authkit-nextjs

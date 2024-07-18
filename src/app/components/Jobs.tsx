@@ -11,7 +11,7 @@ export default function Jobs({ header, jobs }: { header: string, jobs: Job[] }) 
                     {!jobs && <div>No job found</div>}
 
                     {jobs && jobs.map((job) => (
-                        <JobRow jobDoc={job}/>
+                        <JobRow jobDoc={job} key={job._id}/>
                     ))}
                 </div>
             </div>

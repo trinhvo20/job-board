@@ -20,13 +20,13 @@ export default async function SearchPage({ searchParams  }: { searchParams : { q
     return (
         <div>
             <h1 className="text-2xl font-bold text-center my-8">
-                Search Results for "{query}"
+                Search Results for &quot;{query}&quot;
             </h1>
-            
+
             {enrichedJobs.length > 0 ? (
                 <Jobs header="" jobs={enrichedJobs} />
             ) : (
-                <p className="text-center text-gray-600">No jobs found for "{query}".</p>
+                <p className="text-center text-gray-600">No jobs found for &quot;{query}&quot;.</p>
             )}
         </div>
     );
