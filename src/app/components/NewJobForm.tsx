@@ -3,7 +3,7 @@ import { Button, RadioGroup, TextArea, TextField, Theme } from "@radix-ui/themes
 import { FaUser, FaStar,FaPhoneAlt  } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoMdPerson } from "react-icons/io";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import ImageUpload from "./ImageUpload";
 import { redirect } from "next/navigation";
 import { saveJobAction } from "../actions/jobActions";
@@ -31,9 +31,24 @@ export default function NewJobForm({orgId, jobDoc}: {orgId: string, jobDoc?: Job
         data.set('stateId', stateId.toString());
         data.set('cityId', cityId.toString());
         data.set('orgId', orgId);
-
+        
         const jobDoc = await saveJobAction(data);
         redirect(`/jobs/${jobDoc.orgId}`);
+    }
+
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        console.log('1');
+        if (!form.checkValidity()) {
+            // If the form is invalid, trigger validation messages
+            console.log('2');
+            form.reportValidity();
+            return;
+        }
+        const formData = new FormData(form);
+        console.log('3');
+        handleSaveJob(formData);
     }
 
     return (
@@ -43,12 +58,15 @@ export default function NewJobForm({orgId, jobDoc}: {orgId: string, jobDoc?: Job
                 action={handleSaveJob}
                 className="mt-4 flex flex-col gap-4"
             >
+                {/* This line is crucial for differentiating between creating a new job and updating an existing job. 
+                If 'jobDoc' is present, the form includes the job ID, signaling the backend to update the job. 
+                If 'jobDoc' is absent, the form does not include an ID, indicating that a new job should be created. */}
                 {jobDoc && (
-                    <input type="hidden" name="jobId" value={jobDoc._id}/>
+                    <input type="hidden" name="id" value={jobDoc._id}/>
                 )}
 
                 {/* Title */}
-                <TextField.Root name="title" placeholder="Job title" defaultValue={jobDoc?.title || ''}/>
+                <TextField.Root name="title" placeholder="Job title" defaultValue={jobDoc?.title || ''} required/>
 
                 <div className="grid md:grid-cols-3 gap-6 *:grow">
                     <div>
@@ -72,7 +90,7 @@ export default function NewJobForm({orgId, jobDoc}: {orgId: string, jobDoc?: Job
 
                 <div>
                     Salary (per year)
-                    <TextField.Root name="salary" defaultValue={jobDoc?.salary || ''}>
+                    <TextField.Root name="salary" defaultValue={jobDoc?.salary || ''} required>
                         <TextField.Slot>
                             $
                         </TextField.Slot>
@@ -90,6 +108,7 @@ export default function NewJobForm({orgId, jobDoc}: {orgId: string, jobDoc?: Job
                                 setCountryName(e.name);
                             }}
                             placeHolder="Select Country"
+                            required
                         />
                         <StateSelect
                             defaultValue={stateId ? {id:stateId,name:stateName} : 0}
@@ -99,6 +118,7 @@ export default function NewJobForm({orgId, jobDoc}: {orgId: string, jobDoc?: Job
                                 setStateName(e.name);
                             }}
                             placeHolder="Select State"
+                            required
                         />
                         <CitySelect
                             defaultValue={cityId ? {id:cityId,name:cityName} : 0}
@@ -109,6 +129,7 @@ export default function NewJobForm({orgId, jobDoc}: {orgId: string, jobDoc?: Job
                                 setCityName(e.name);
                             }}
                             placeHolder="Select City"
+                            required
                         />
                     </div>
                 </div>
@@ -125,13 +146,13 @@ export default function NewJobForm({orgId, jobDoc}: {orgId: string, jobDoc?: Job
                                 <ImageUpload name="contactPhoto" icon={FaUser} defaultValue={jobDoc?.contactPhoto || ''}/>
                             </div>
                             <div className="grow flex flex-col gap-1">
-                                <TextField.Root placeholder="Name" type="text" name="contactName" defaultValue={jobDoc?.contactName || ''}>
+                                <TextField.Root placeholder="Name" type="text" name="contactName" defaultValue={jobDoc?.contactName || ''} required>
                                     <TextField.Slot><IoMdPerson /></TextField.Slot>
                                 </TextField.Root>
-                                <TextField.Root placeholder="Phone" type="tel" name="contactPhone" defaultValue={jobDoc?.contactPhone || ''}>
+                                <TextField.Root placeholder="Phone" type="tel" name="contactPhone" defaultValue={jobDoc?.contactPhone || ''} required>
                                     <TextField.Slot><FaPhoneAlt /></TextField.Slot>
                                 </TextField.Root>
-                                <TextField.Root placeholder="Email" type="email" name="contactEmail" defaultValue={jobDoc?.contactEmail || ''}>
+                                <TextField.Root placeholder="Email" type="email" name="contactEmail" defaultValue={jobDoc?.contactEmail || ''} required>
                                     <TextField.Slot><MdEmail /></TextField.Slot>
                                 </TextField.Root>
                             </div>
@@ -139,7 +160,7 @@ export default function NewJobForm({orgId, jobDoc}: {orgId: string, jobDoc?: Job
                     </div>
                 </div>
 
-                <TextArea placeholder="Job description" resize="vertical" name="description" defaultValue={jobDoc?.description || ''}/>
+                <TextArea placeholder="Job description" resize="vertical" name="description" defaultValue={jobDoc?.description || ''} required/>
 
                 <Button size="3">Post Job</Button>
             </form>

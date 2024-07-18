@@ -45,6 +45,7 @@ const JobSchema = new Schema({
   contactPhone: {type: String, required: true},
   contactEmail: {type: String, required: true},
   orgId: {type: String, required: true},
+  orgName: {type: String},
 }, {
   timestamps: true,
 });
@@ -55,7 +56,7 @@ export const JobModel = models?.Job || model('Job', JobSchema);
 export async function enrichJobsWithOrgDetails(jobDocs: Job[], user: User|null) {
     jobDocs = JSON.parse(JSON.stringify(jobDocs));
 
-    await mongoose.connect(process.env.MONGODB_URI as string);
+    // await mongoose.connect(process.env.MONGODB_URI as string);
     const workos = new WorkOS(process.env.WORKOS_API_KEY);
     let orgMemberships: AutoPaginatable<OrganizationMembership>|null = null;
     
@@ -80,4 +81,31 @@ export async function enrichJobsWithOrgDetails(jobDocs: Job[], user: User|null) 
 
     // Return the enriched job documents
     return jobDocs;
+}
+
+
+export async function enrichJobWithOrgDetails(job: any, user: User | null) {
+    job = JSON.parse(JSON.stringify(job));
+    
+    const workos = new WorkOS(process.env.WORKOS_API_KEY);
+    let orgMemberships = null;
+    
+    // If a user is provided, retrieve their organization memberships
+    if (user) {
+        orgMemberships = await workos.userManagement.listOrganizationMemberships({ userId: user.id });
+    }
+
+    // Retrieve organization details for the job's organization ID
+    const org = await workos.organizations.getOrganization(job.orgId);
+
+    // Add the organization name to the job document
+    job.orgName = org.name;
+
+    // If organization memberships are retrieved and not empty, check if user is an admin
+    if (orgMemberships && orgMemberships.data.length > 0) {
+        job.isAdmin = !!orgMemberships.data.find(om => om.organizationId === job.orgId);
+    }
+
+    // Return the enriched job document
+    return job;
 }

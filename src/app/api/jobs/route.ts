@@ -1,3 +1,4 @@
+// src\app\api\jobs\route.ts
 import { JobModel } from "@/models/Job";
 import mongoose from "mongoose";
 import { NextRequest } from "next/server";

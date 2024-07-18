@@ -1,3 +1,5 @@
+// src\app\page.tsx
+
 import Hero from "./components/Hero";
 import Jobs from "./components/Jobs";
 import { getUser } from '@workos-inc/authkit-nextjs';

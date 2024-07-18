@@ -13,12 +13,28 @@ export default function JobRow({ jobDoc }: { jobDoc: Job }) {
                 <FaRegHeart className="size-5 text-gray-500"/>
             </div>
             <div className="content-center">
-                <img src={jobDoc?.jobIcon} className="size-12 rounded-full" />
+                {jobDoc.jobIcon && (
+                    <img src={jobDoc?.jobIcon} className="size-12 rounded-full" />
+                )}
+                {!jobDoc.jobIcon && (
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWjB6495OQf9AsBzh2_Xcwd3PdW86-6TXtzQ&s" className="size-12 rounded-full" />
+                )}
             </div>
             <div className="grow sm:flex">
                 <div className="grow">
-                    <div className="font-bold">{jobDoc.title}</div>
-                    <div className="text-gray-600 text-sm mb-1">{jobDoc.orgName}</div>
+                    <div className="font-bold cursor-pointer">
+                        <Link href={`/jobs/show/${jobDoc._id}`}>
+                            {jobDoc.title}
+                        </Link>
+                    </div>
+                    <div className='block cursor-pointer '>
+                        <Link 
+                            href={`/jobs/${jobDoc.orgId}`} 
+                            className="text-gray-600 text-sm mb-1"
+                        >
+                            {jobDoc.orgName}
+                        </Link>
+                    </div>
                     <div className="text-gray-500 text-xs">
                         {jobDoc.remote} • {jobDoc.state}, {jobDoc.country} • {jobDoc.type}
                         {jobDoc.isAdmin && (
