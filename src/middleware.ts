@@ -13,4 +13,6 @@ export const config = { matcher: [
     '/jobs/:orgId*',
     '/jobs/edit/:jobId*',
     '/jobs/show/:jobId*',
+
+    '/search'
 ] };
