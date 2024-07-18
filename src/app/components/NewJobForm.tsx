@@ -3,7 +3,7 @@ import { Button, RadioGroup, TextArea, TextField, Theme } from "@radix-ui/themes
 import { FaUser, FaStar,FaPhoneAlt  } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoMdPerson } from "react-icons/io";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import ImageUpload from "./ImageUpload";
 import { redirect } from "next/navigation";
 import { saveJobAction } from "../actions/jobActions";
