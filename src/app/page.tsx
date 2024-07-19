@@ -10,7 +10,7 @@ export default async function Home() {
   await mongoose.connect(process.env.MONGODB_URI as string)
   
   const latestJobs = await enrichJobsWithOrgDetails(
-    await JobModel.find({},{},{limit:5,sort:'-createdAt'}),
+    await JobModel.find({},{},{limit:10,sort:'-createdAt'}),
     user,
   );
 
