@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { enrichJobsWithOrgDetails, JobModel } from "@/models/Job";
 
 export default async function SearchPage({ searchParams  }: { searchParams : { q?: string } }) {
-    const query = searchParams .q || '';
+    const query = searchParams.q || '';
     const {user} = await getUser();
     await mongoose.connect(process.env.MONGODB_URI as string);
 
